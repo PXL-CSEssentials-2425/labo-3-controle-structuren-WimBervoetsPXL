@@ -1,4 +1,96 @@
-﻿/* 
+﻿Random randomNumberGenerator = new Random();
+
+int knightHealth;
+Console.Write("Enter the knight's health: ");
+string input = Console.ReadLine();
+
+bool isValidNumber = int.TryParse(input, out knightHealth);
+if(isValidNumber == true)
+{
+    if(knightHealth <= 0 || knightHealth > 100)
+    {
+        // ongeldige waarde ingegeven, standaard waarde 100 gebruiken:
+        Console.WriteLine("Number must be between 0 and 100, default value 100 is used.");
+        knightHealth = 100;
+    }
+}
+else
+{
+    // ongeldig getal ingegeven, standaard waarde 100 gebruiken:
+    Console.WriteLine("Invalid input, default value 100 is used.");
+    knightHealth = 100;
+}
+
+int goblinHealth = randomNumberGenerator.Next(1, 101); 
+
+Console.WriteLine($"Knight health: {knightHealth}");
+Console.WriteLine($"Goblin health: {goblinHealth}");
+Console.WriteLine();
+
+Console.WriteLine("Available actions:");
+Console.WriteLine("1. Attack");
+Console.WriteLine("2. Heal");
+Console.Write("Please select an action: ");
+string action = Console.ReadLine();
+
+int knightAttack = 10;
+int goblinAttack = 5;
+
+switch (action)
+{
+    case "1":
+        goblinHealth -= knightAttack;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"You attacked the goblin for {knightAttack} damage!");
+        Console.ResetColor();
+        break;
+    case "2":
+        knightHealth += 10;
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("You healed yourself for 10 health points!");
+        Console.ResetColor();
+        break;
+    default:
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("Invalid move! Please choose a valid move.");
+        Console.ResetColor();
+        break;
+}
+
+if (goblinHealth > 0)
+{
+    knightHealth -= goblinAttack;
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine($"You were attacked by the goblin for {goblinAttack} damage!");
+    Console.ResetColor();
+}
+
+
+if (knightHealth <= 0)
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("You lost, the knight died!");
+    Console.ResetColor();
+}
+else
+{
+    Console.WriteLine($"Knight health: {knightHealth}");
+}
+
+if(goblinHealth <= 0)
+{
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("You won, the goblin died!");
+    Console.ResetColor();
+}
+else
+{
+    Console.WriteLine($"Goblin health: {goblinHealth}");
+}
+
+
+
+/* 
  * Deel 1
  * 
  * We gaan een applicatie maken waarin de speler als ridder tegen een goblin moet vechten.
